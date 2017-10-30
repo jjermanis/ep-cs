@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollatzSequenceMemoized.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solutions011to020.cs" />
     <Compile Include="Solutions001to010.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@ namespace unit_tests
         /// Testing against the results of the specific problems from the site.
         /// </summary>
         [TestMethod]
-        public void SolutionsTest()
+        public void Solutions001to010Test()
         {
             Test(Solutions.Solution001, nameof(Solutions.Solution001), 233168, TestSpeed.Fast);
             Test(Solutions.Solution002, nameof(Solutions.Solution002), 4613732, TestSpeed.Fast);
