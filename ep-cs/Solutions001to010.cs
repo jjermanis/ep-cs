@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace ep_cs
 {
@@ -40,9 +42,9 @@ namespace ep_cs
         private static IEnumerable<int> FibonacciNumbers()
         {
             yield return 1;
-            yield return 2;
+            yield return 1;
             int x = 1;
-            int y = 2;
+            int y = 1;
             // This will overflow as the series exceeds Int32.MaxValue.
             checked
             {
@@ -168,5 +170,163 @@ namespace ep_cs
             }
             return result;
         }
+
+        public static int Solution006()
+            => SumSquareDifference(100);
+
+        private static int SumSquareDifference(int n)
+        {
+            var sumOfSquares = 0;
+            for (int i = 1; i <= n; i++)
+                sumOfSquares += i * i;
+            var sums = n * (n + 1) / 2;
+            var squareofSums = sums * sums;
+            return squareofSums - sumOfSquares;
+        }
+
+        public static int Solution007()
+            => GetNthPrime(10_001);
+        private static int GetNthPrime(int n)
+        {
+            // TODO - use a better algorithm here, on principle.  In reality, this will
+            // be more than fast enough.
+
+            int count = 2;  // We'll skip 2 and 3
+
+            // Check for odd numbers only.  We also skip numbers evenly divisible by 3.
+            var curr = 5;
+            while (count < n)
+            {
+                if (IsPrime(curr))
+                    if (++count == n)
+                        return curr;
+                if (IsPrime(curr+2))
+                    if (++count == n)
+                        return curr+2;
+                curr += 6;
+            }
+            throw new Exception("never gets here");
+        }
+
+        // TODO - use math-cs instead
+        private static bool IsPrime(int n)
+        {
+            // 2 is the smallest prime
+            if (n < 2)
+                return false;
+
+            // true iff n is 2 or 3
+            if (n < 4)
+                return true;
+
+            // Special handling to check if number is divisible by 2 or 3
+            if (n % 2 == 0 || n % 3 == 0)
+                return false;
+
+            // Since we have already checked for 2 and 3, we can skip even
+            // numbers, and those evenly divisible by 3.
+            var factor = 5;
+            while (factor * factor <= n &&
+                   factor <= 46341)
+            {
+                if (n % factor == 0 ||
+                    n % (factor + 2) == 0)
+                    return false;
+                factor += 6;
+            }
+            return true;
+        }
+
+        public static long Solution008()
+            => LargestAdjacentProduct(13);
+
+        private static long LargestAdjacentProduct(int digits)
+        {
+            var numbers = ReadNumbersFromResource("ep_cs.data.Problem8Number.txt");
+
+            long max = 0;
+            for (int x = 0; x < 1000 - digits; x++)
+            {
+                long currVal = 1;
+                for (int i = 0; i < digits; i++)
+                    currVal *= numbers[x + i];
+                if (currVal > max)
+                    max = currVal;
+            }
+            return max;
+        }
+
+        public static int Solution009()
+            => ProductOfPythagoreanTripleSummingTo(1000);
+
+        private static int ProductOfPythagoreanTripleSummingTo(int n)
+        {
+            foreach(var triple in PythagoreanTriples())
+            {
+                if (triple.Item1 + triple.Item2 + triple.Item3 == n)
+                    return triple.Item1 * triple.Item2 * triple.Item3;
+            }
+            throw new Exception("never gets here");
+        }
+
+        // TODO: switch to C# 7 style tuples
+        private static IEnumerable<Tuple<int,int,int>> PythagoreanTriples()
+        {
+            for (int r=2; ; r+=2)
+            {
+                int rsq = r * r;
+                int st = rsq / 2;
+                for (int factor=1; factor*factor<st; factor++)
+                {
+                    if (st % factor == 0)
+                    {
+                        yield return Tuple.Create(
+                            r+factor, r+(st/factor), r+factor+(st/factor));
+                    }
+                }
+            }
+        }
+
+        private static IList<int> ReadNumbersFromResource(string resourceName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var temp = assembly.GetManifestResourceNames();
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string rawData = reader.ReadToEnd();
+                var result = new List<int>(rawData.Length);
+                foreach (char digit in rawData)
+                    if (digit >= '0' && digit <= '9')
+                        result.Add(digit - '0');
+                return result;
+            }
+        }
+
+        public static long Solution010()
+            => SumOfPrimes(2_000_000);
+        private static long SumOfPrimes(int max)
+        {
+            // TODO - see Solution007 - use a better algorithm here, on principle.  
+            // As before, this will be more than fast enough.
+
+            long result = 5;  // We'll start with 2 and 3
+
+            // Check for odd numbers only.  We also skip numbers evenly divisible by 3.
+            var curr = 5;
+            while (curr < max)
+            {
+                if (IsPrime(curr))
+                    result += curr;
+                // We don't recheck max on the 2nd value.  This is not a problem for this 
+                // specific problem, but can fail for others.
+                if (IsPrime(curr + 2))
+                    result += curr + 2;
+                curr += 6;
+            }
+            return result;
+        }
+
     }
 }
