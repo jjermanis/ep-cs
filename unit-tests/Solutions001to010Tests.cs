@@ -17,6 +17,12 @@ namespace unit_tests
             Test(Solutions.Solution003, nameof(Solutions.Solution003), 6857, TestSpeed.Fast);
             Test(Solutions.Solution004, nameof(Solutions.Solution004), 906609, TestSpeed.Fast);
             Test(Solutions.Solution005, nameof(Solutions.Solution005), 232792560, TestSpeed.Fast);
+            Test(Solutions.Solution006, nameof(Solutions.Solution006), 25164150, TestSpeed.Fast);
+            Test(Solutions.Solution007, nameof(Solutions.Solution007), 104743, TestSpeed.Fast);
+            Test(Solutions.Solution008, nameof(Solutions.Solution008), 23514624000L, TestSpeed.Fast);
+            Test(Solutions.Solution009, nameof(Solutions.Solution009), 31875000, TestSpeed.Fast);
+            Test(Solutions.Solution010, nameof(Solutions.Solution010), 142913828922L, TestSpeed.Normal);
+
         }
     }
 }
