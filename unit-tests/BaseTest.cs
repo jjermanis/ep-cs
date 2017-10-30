@@ -10,7 +10,7 @@ namespace unit_tests
     public enum TestSpeed
     {
         Fast = 100,
-        Normal = 2000,
+        Normal = 1000,
         Slow = 10000,
         VerySlow = 60000
     };
