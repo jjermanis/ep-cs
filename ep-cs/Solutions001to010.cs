@@ -154,6 +154,7 @@ namespace ep_cs
             return result;
         }
 
+        // TODO - remove this, call out to math-cs
         private static IReadOnlyDictionary<int, int> GetPrimeFactors(int n)
         {
             var remaining = n;
