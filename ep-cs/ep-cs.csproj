@@ -63,5 +63,8 @@
   <ItemGroup>
     <EmbeddedResource Include="data\Problem13Numbers.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="data\Problem18Triangle.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

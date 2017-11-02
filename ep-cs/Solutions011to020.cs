@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Reflection;
 
@@ -291,6 +292,64 @@ namespace ep_cs
 
                 result += 7; // "hundred"
                 result += LETTERS_PER_DIGIT[hundreds];
+            }
+            return result;
+        }
+
+        public static int Solution018()
+            => MaximumTriangleTotal("ep_cs.data.Problem18Triangle.txt");
+        private static int MaximumTriangleTotal(string triangleResourceName)
+        {
+            var triangle = ReadTriangleFromResource(triangleResourceName);
+            for (int row=triangle.Count-2; row>=0; row--)
+            {
+                for (int x = 0; x < triangle[row].Count; x++)
+                    triangle[row][x] += Math.Max(triangle[row + 1][x], triangle[row + 1][x + 1]);
+            }
+            return triangle[0][0];
+        }
+
+        private static IList<IList<int>> ReadTriangleFromResource(string resourceName)
+        {
+            var result = new List<IList<int>>();
+            var assembly = Assembly.GetExecutingAssembly();
+            var temp = assembly.GetManifestResourceNames();
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var rawData = reader.ReadLine().Split(' ');
+                    result.Add(rawData.Select(n => Int32.Parse(n)).ToList<int>());
+                }
+            }
+            return result;
+        }
+
+        public static int Solution019()
+            => FirstOfMonthSundaysSince1901(2000);
+
+        private static readonly IReadOnlyList<int> DAYS_PER_MONTH =
+            new List<int>(){31,28,31,30,31,30,31,31,30,31,30,31 };
+        private static int FirstOfMonthSundaysSince1901(int endYear)
+        {
+            if (endYear < 1901)
+                throw new ArgumentOutOfRangeException(nameof(endYear), endYear, $"{nameof(endYear)} must be 1901 or later");
+
+            var result = 0;
+            var dayOfWeek = 2; // 1/1/1901 was a Tuesday
+            for (var year=1901; year <= endYear; year++)
+            {
+                foreach(int month in Enumerable.Range(0,12))
+                {
+                    var daysInMonth = DAYS_PER_MONTH[month];
+                    if (month == 1 && DateTime.IsLeapYear(year))
+                        daysInMonth++;
+                    dayOfWeek = (dayOfWeek + daysInMonth) % 7;
+                    if (dayOfWeek == 0)
+                        result++;
+                }
             }
             return result;
         }
