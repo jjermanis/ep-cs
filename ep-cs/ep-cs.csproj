@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,6 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="data\Problem13Numbers.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="data\Problem18Triangle.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
