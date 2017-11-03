@@ -18,6 +18,7 @@ namespace unit_tests
             Test(Solutions.Solution017, nameof(Solutions.Solution017), 21124, TestSpeed.Fast);
             Test(Solutions.Solution018, nameof(Solutions.Solution018), 1074, TestSpeed.Fast);
             Test(Solutions.Solution019, nameof(Solutions.Solution019), 171, TestSpeed.Fast);
+            Test(Solutions.Solution020, nameof(Solutions.Solution020), 648, TestSpeed.Fast);
         }
     }
 }

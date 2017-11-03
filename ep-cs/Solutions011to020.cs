@@ -353,5 +353,26 @@ namespace ep_cs
             }
             return result;
         }
+
+        public static int Solution020()
+            => FactorialDigitSum(100);
+
+        private static int FactorialDigitSum(int n)
+        {
+            var factorial = Factorial(n);
+            var result = 0;
+            foreach (char c in factorial.ToString())
+                result += c - '0';
+            return result;
+        }
+
+        private static BigInteger Factorial(int n)
+        {
+            var result = BigInteger.One;
+
+            for (var i = 2; i < n; i++)
+                result = result * i;
+            return result;
+        }
     }
 }
