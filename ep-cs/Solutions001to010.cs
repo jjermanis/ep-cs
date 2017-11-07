@@ -209,25 +209,48 @@ namespace ep_cs
             return result;
         }
 
+        /// <summary>
+        /// Find the difference between the sum of the squares of the first one hundred 
+        /// natural numbers and the square of the sum.
+        /// </summary>
         public static int Solution006()
             => SumSquareDifference(100);
 
-        private static int SumSquareDifference(int n)
+        /// <summary>
+        /// Returns the difference between the sum of square vs. square of sums for
+        /// first n positive integers.
+        /// Sum of squares: 1^2+2^2+...+n^2
+        /// Square of sums: (1+2+...+n)^2
+        /// </summary>
+        public static int SumSquareDifference(int n)
         {
+            // "Brute force" sum of squares
             var sumOfSquares = 0;
             for (int i = 1; i <= n; i++)
                 sumOfSquares += i * i;
+
+            // Use alegbra on square of sums
             var sums = n * (n + 1) / 2;
             var squareofSums = sums * sums;
+
             return squareofSums - sumOfSquares;
         }
 
+        /// <summary>
+        /// What is the 10 001st prime number?
+        /// </summary>
         public static int Solution007()
             => GetNthPrime(10_001);
-        private static int GetNthPrime(int n)
+
+
+        /// <summary>
+        /// Starting from 2, returns the nth prime number
+        /// </summary>
+        public static int GetNthPrime(int n)
         {
-            // TODO - use a better algorithm here, on principle.  In reality, this will
-            // be more than fast enough.
+            // TODO - use a better algorithm here, on principle.  Something like Sieve
+            // of Eratosthenes (where known prime are tracked) would be muich fast.
+            // In reality, this will be more than fast enough for this problem.
 
             int count = 2;  // We'll skip 2 and 3
 
@@ -275,10 +298,14 @@ namespace ep_cs
             return true;
         }
 
+        /// <summary>
+        /// Find the thirteen adjacent digits in the 1000-digit number that have
+        /// the greatest product.
+        /// </summary>
         public static long Solution008()
             => LargestAdjacentProduct(13);
 
-        private static long LargestAdjacentProduct(int digits)
+        public static long LargestAdjacentProduct(int digits)
         {
             var numbers = ReadNumbersFromResource("ep_cs.data.Problem8Number.txt");
 
@@ -294,6 +321,10 @@ namespace ep_cs
             return max;
         }
 
+        /// <summary>
+        /// There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+        /// Find the product abc.
+        /// </summary>
         public static int Solution009()
             => ProductOfPythagoreanTripleSummingTo(1000);
 
@@ -328,8 +359,7 @@ namespace ep_cs
         private static IList<int> ReadNumbersFromResource(string resourceName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var temp = assembly.GetManifestResourceNames();
-
+ 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))
             {
@@ -342,9 +372,13 @@ namespace ep_cs
             }
         }
 
+        /// <summary>
+        /// Find the sum of all the primes below two million.
+        /// </summary>
         public static long Solution010()
             => SumOfPrimes(2_000_000);
-        private static long SumOfPrimes(int max)
+
+        public static long SumOfPrimes(int max)
         {
             // TODO - see Solution007 - use a better algorithm here, on principle.  
             // As before, this will be more than fast enough.

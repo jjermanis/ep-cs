@@ -6,14 +6,6 @@ namespace unit_tests
     [TestClass]
     public class Solutions001to010Tests : BaseTest
     {
-        private PrivateType _imp; 
-
-        [TestInitialize]
-        public void Init()
-        {
-            _imp = new PrivateType(typeof(Solutions001to010Tests));
-        }
-
         /// <summary>
         /// Testing against the results of the specific problems from the site.
         /// </summary>
@@ -57,6 +49,42 @@ namespace unit_tests
         public void Solution005ImplementationTest()
         {
             Assert.AreEqual(2520, Solutions.SmallestNumberDivisibleByAll(10));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution006 - sum square difference
+        /// </summary>
+        [TestMethod]
+        public void Solution006ImplementationTest()
+        {
+            Assert.AreEqual(2640, Solutions.SumSquareDifference(10));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution007 - nth prime number
+        /// </summary>
+        [TestMethod]
+        public void Solution007ImplementationTest()
+        {
+            Assert.AreEqual(13, Solutions.GetNthPrime(6));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution008 - adjacent digits product
+        /// </summary>
+        [TestMethod]
+        public void Solution008ImplementationTest()
+        {
+            Assert.AreEqual(5832, Solutions.LargestAdjacentProduct(4));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution010 - sum of primes
+        /// </summary>
+        [TestMethod]
+        public void Solution010ImplementationTest()
+        {
+            Assert.AreEqual(17, Solutions.SumOfPrimes(10));
         }
 
     }
