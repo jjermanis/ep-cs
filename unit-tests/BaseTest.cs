@@ -28,5 +28,6 @@ namespace unit_tests
             Assert.IsTrue(duration < (int)speed,
                 $"{nameofFunc} was too slow.  Took {duration} ms");
         }
+
     }
 }

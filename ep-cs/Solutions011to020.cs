@@ -75,7 +75,6 @@ namespace ep_cs
         {
             var result = new int[width, height];
             var assembly = Assembly.GetExecutingAssembly();
-            var temp = assembly.GetManifestResourceNames();
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))
@@ -134,7 +133,6 @@ namespace ep_cs
         {
             var result = new List<long>();
             var assembly = Assembly.GetExecutingAssembly();
-            var temp = assembly.GetManifestResourceNames();
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))

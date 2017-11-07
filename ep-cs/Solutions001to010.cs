@@ -7,38 +7,53 @@ namespace ep_cs
 {
     public static partial class Solutions
     {
+        /// <summary>
+        /// Find the sum of all the multiples of 3 or 5 below 1000.
+        /// </summary>
+        /// <returns></returns>
         public static int Solution001()
             => SumMultiples3and5(1000);
 
-        private static int SumMultiples3and5(int n)
+        /// <summary>
+        /// Find the sum of all integers from 1 to n that are evenly divisible by 3 and/or 5
+        /// </summary>
+        public static int SumMultiples3and5(int n)
         {
-            int result = 0;
-            for (int i = 1; i < n; i++)
+            var result = 0;
+            for (var i = 1; i < n; i++)
                 if (i % 3 == 0 ||
                     i % 5 == 0)
                     result += i;
             return result;
         }
 
+        /// <summary>
+        /// Considering the terms in the Fibonacci sequence whose values do not exceed
+        /// four million, find the sum of the even-valued terms.
+        /// </summary>
         public static int Solution002()
             => SumEvenFibonacciNumbers(4_000_000);
 
+        /// <summary>
+        /// Find the sum of all even numbers that are less than or equal to max
+        /// </summary>
         private static int SumEvenFibonacciNumbers(int max)
         {
-            int result = 0;
-            // TODO: there is a potential optimization here, since even numbers appear in
+            var result = 0;
+            // NOTE: there is a potential optimization here, since even numbers appear in
             // this series in a predictable pattern (every 3rd element).  This current
             // implementation is well fast enough for current needs.
-            foreach (int num in FibonacciNumbers())
+            foreach (var num in FibonacciNumbers())
             {
-                if (num > max)
-                    return result;
+                if (num >= max)
+                    break;
                 if (num % 2 == 0)
                     result += num;
             }
-            throw new Exception("never gets here");
+            return result;
         }
 
+        // TODO: use the implementation in math-cs
         private static IEnumerable<int> FibonacciNumbers()
         {
             yield return 1;
@@ -58,13 +73,19 @@ namespace ep_cs
             }
         }
 
+        /// <summary>
+        /// What is the largest prime factor of the number 600851475143 ?
+        /// </summary>
         public static long Solution003()
             => LargestPrimeFactor(600851475143);
 
-        private static long LargestPrimeFactor(long n)
+        /// <summary>
+        /// Find that largest prime factor of n
+        /// </summary>
+        public static long LargestPrimeFactor(long n)
         {
-            long remaining = n;
-            long lastFactor = 1;
+            var remaining = n;
+            var lastFactor = 1L;
             // Find prime factors in ascending order.  The largest factor will be last.
             while (remaining > 1)
             {
@@ -74,6 +95,9 @@ namespace ep_cs
             return lastFactor;
         }
 
+        /// <summary>
+        /// Find the smallest prime factor of n
+        /// </summary>
         private static long SmallestPrimeFactor(long n)
         {
             if (n < 2)
@@ -82,7 +106,7 @@ namespace ep_cs
                 return 2;
             if (n % 3 == 0)
                 return 3;
-            long factor = 5;
+            var factor = 5L;
             while (factor*factor<=n)
             {
                 if (n % factor == 0)
@@ -95,13 +119,16 @@ namespace ep_cs
             return n;
         }
 
+        /// <summary>
+        /// Find the largest palindrome made from the product of two 3-digit numbers.
+        /// </summary>
         public static int Solution004()
         {
             // Try each unique combination of three-digit numbers, looking for
             // max product that's a paliondrome.
-            int maxProduct = 1;
-            for (int left=100; left<=999; left++)
-                for (int right=left; right<=999; right++)
+            var maxProduct = 1;
+            for (var left=100; left<=999; left++)
+                for (var right=left; right<=999; right++)
                     if (left*right > maxProduct &&
                         IsPalindrome(left*right))
                     {
@@ -110,9 +137,10 @@ namespace ep_cs
             return maxProduct;
         }
 
+        // TODO: move to math-cs?
         private static bool IsPalindrome(int n)
         {
-            // Reverse the number.  If it's the same as the origina;, it's a palindrome
+            // Reverse the number.  If it's the same as the original, it's a palindrome
             var reversed = 0;
             var curr = n;
             while (curr > 0)
@@ -124,23 +152,32 @@ namespace ep_cs
             return reversed == n;
         }
 
+        /// <summary>
+        /// What is the smallest positive number that is evenly divisible by all of the
+        /// numbers from 1 to 20?
+        /// </summary>
         public static int Solution005()
             => SmallestNumberDivisibleByAll(20);
 
-        private static int SmallestNumberDivisibleByAll(int n)
+        /// <summary>
+        /// What is the smallest number that is evenly divisible by the integers
+        /// between 1 and n?
+        /// </summary>
+        public static int SmallestNumberDivisibleByAll(int n)
         {
             // Get the prime factors for each numbers between 2 and n, keeping track
-            // of repeats _within_each_individual_number.
-            Dictionary<int, int> factors = new Dictionary<int, int>();
+            // of repeats within each individual number.  We want the max of each
+            // factor
+            var factors = new Dictionary<int, int>();
             for (int i=2; i<=n; i++)
             {
                 var currFactors = GetPrimeFactors(i);
                 foreach(var currFactor in currFactors)
                 {
                     if (!factors.ContainsKey(currFactor.Key))
-                        factors[currFactor.Key] = 1;
-                    if (currFactor.Value > factors[currFactor.Key])
                         factors[currFactor.Key] = currFactor.Value;
+                    else
+                        factors[currFactor.Key] = Math.Max(currFactor.Value, factors[currFactor.Key]);
                 }
             }
 
@@ -172,25 +209,48 @@ namespace ep_cs
             return result;
         }
 
+        /// <summary>
+        /// Find the difference between the sum of the squares of the first one hundred 
+        /// natural numbers and the square of the sum.
+        /// </summary>
         public static int Solution006()
             => SumSquareDifference(100);
 
-        private static int SumSquareDifference(int n)
+        /// <summary>
+        /// Returns the difference between the sum of square vs. square of sums for
+        /// first n positive integers.
+        /// Sum of squares: 1^2+2^2+...+n^2
+        /// Square of sums: (1+2+...+n)^2
+        /// </summary>
+        public static int SumSquareDifference(int n)
         {
+            // "Brute force" sum of squares
             var sumOfSquares = 0;
             for (int i = 1; i <= n; i++)
                 sumOfSquares += i * i;
+
+            // Use alegbra on square of sums
             var sums = n * (n + 1) / 2;
             var squareofSums = sums * sums;
+
             return squareofSums - sumOfSquares;
         }
 
+        /// <summary>
+        /// What is the 10 001st prime number?
+        /// </summary>
         public static int Solution007()
             => GetNthPrime(10_001);
-        private static int GetNthPrime(int n)
+
+
+        /// <summary>
+        /// Starting from 2, returns the nth prime number
+        /// </summary>
+        public static int GetNthPrime(int n)
         {
-            // TODO - use a better algorithm here, on principle.  In reality, this will
-            // be more than fast enough.
+            // TODO - use a better algorithm here, on principle.  Something like Sieve
+            // of Eratosthenes (where known prime are tracked) would be muich fast.
+            // In reality, this will be more than fast enough for this problem.
 
             int count = 2;  // We'll skip 2 and 3
 
@@ -238,10 +298,14 @@ namespace ep_cs
             return true;
         }
 
+        /// <summary>
+        /// Find the thirteen adjacent digits in the 1000-digit number that have
+        /// the greatest product.
+        /// </summary>
         public static long Solution008()
             => LargestAdjacentProduct(13);
 
-        private static long LargestAdjacentProduct(int digits)
+        public static long LargestAdjacentProduct(int digits)
         {
             var numbers = ReadNumbersFromResource("ep_cs.data.Problem8Number.txt");
 
@@ -257,6 +321,10 @@ namespace ep_cs
             return max;
         }
 
+        /// <summary>
+        /// There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+        /// Find the product abc.
+        /// </summary>
         public static int Solution009()
             => ProductOfPythagoreanTripleSummingTo(1000);
 
@@ -291,8 +359,7 @@ namespace ep_cs
         private static IList<int> ReadNumbersFromResource(string resourceName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var temp = assembly.GetManifestResourceNames();
-
+ 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))
             {
@@ -305,9 +372,13 @@ namespace ep_cs
             }
         }
 
+        /// <summary>
+        /// Find the sum of all the primes below two million.
+        /// </summary>
         public static long Solution010()
             => SumOfPrimes(2_000_000);
-        private static long SumOfPrimes(int max)
+
+        public static long SumOfPrimes(int max)
         {
             // TODO - see Solution007 - use a better algorithm here, on principle.  
             // As before, this will be more than fast enough.

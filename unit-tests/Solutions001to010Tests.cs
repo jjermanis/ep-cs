@@ -22,7 +22,70 @@ namespace unit_tests
             Test(Solutions.Solution008, nameof(Solutions.Solution008), 23514624000L, TestSpeed.Fast);
             Test(Solutions.Solution009, nameof(Solutions.Solution009), 31875000, TestSpeed.Fast);
             Test(Solutions.Solution010, nameof(Solutions.Solution010), 142913828922L, TestSpeed.Normal);
-
         }
+
+        /// <summary>
+        /// Testing of more cases related to Solution001 - sum of multiples of 3 or 5
+        /// </summary>
+        [TestMethod]
+        public void Solution001ImplementationTest()
+        {
+            Assert.AreEqual(23, Solutions.SumMultiples3and5(10));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution003 - largest prime factor
+        /// </summary>
+        [TestMethod]
+        public void Solution003ImplementationTest()
+        {
+            Assert.AreEqual(29, Solutions.LargestPrimeFactor(13195));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution005 - evenly disivible number
+        /// </summary>
+        [TestMethod]
+        public void Solution005ImplementationTest()
+        {
+            Assert.AreEqual(2520, Solutions.SmallestNumberDivisibleByAll(10));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution006 - sum square difference
+        /// </summary>
+        [TestMethod]
+        public void Solution006ImplementationTest()
+        {
+            Assert.AreEqual(2640, Solutions.SumSquareDifference(10));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution007 - nth prime number
+        /// </summary>
+        [TestMethod]
+        public void Solution007ImplementationTest()
+        {
+            Assert.AreEqual(13, Solutions.GetNthPrime(6));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution008 - adjacent digits product
+        /// </summary>
+        [TestMethod]
+        public void Solution008ImplementationTest()
+        {
+            Assert.AreEqual(5832, Solutions.LargestAdjacentProduct(4));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution010 - sum of primes
+        /// </summary>
+        [TestMethod]
+        public void Solution010ImplementationTest()
+        {
+            Assert.AreEqual(17, Solutions.SumOfPrimes(10));
+        }
+
     }
 }
