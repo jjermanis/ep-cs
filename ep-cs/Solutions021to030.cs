@@ -22,9 +22,7 @@ namespace ep_cs
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static int AmicableNumberForFactorsSum(int n)
+        private static int AmicableNumberForFactorsSum(int n)
         {
             // Calculate all factor sums in range
             var divisorSums = new int[n];
@@ -70,7 +68,7 @@ namespace ep_cs
         public static int Solution022()
             => FileNameScore("ep_cs.data.Problem22Names.txt");
 
-        public static int FileNameScore(string nameFile)
+        private static int FileNameScore(string nameFile)
         {
             var names = ReadStringsFromResource(nameFile);
             names.Sort();
@@ -112,5 +110,83 @@ namespace ep_cs
             return result;
         }
 
+        public static int Solution023()
+            => SumOfAbundantNumberSums(28123);
+
+        private static int SumOfAbundantNumberSums(int max)
+        {
+            var abundantNums = AbundantNumbers(max);
+            bool[] isSumofAbundants = new bool[max + 1];
+            for (int x = 0; x < abundantNums.Count; x++)
+                for (int y = x; y < abundantNums.Count; y++)
+                {
+                    var sum = abundantNums[x] + abundantNums[y];
+                    if (sum <= max)
+                        isSumofAbundants[sum] = true;
+                }
+            int result = 0;
+            for (int x = 1; x < max; x++)
+                if (!isSumofAbundants[x])
+                    result += x;
+            return result;
+        }
+
+        private static List<int> AbundantNumbers(int max)
+        {
+            var result = new List<int>();
+            for (int x = 2; x <= max; x++)
+                if (SumProperDivisors(x) > x)
+                    result.Add(x);
+            return result;
+        }
+
+        public static long Solution024()
+            => LexographicPermutation(10, 1_000_000);
+
+        private static long LexographicPermutation(int digits, int x)
+        {
+            long result = 0;
+            var remaining = x-1;
+            var avail_digits = new List<int>();
+            for (int i = 0; i < 10; i++)
+                avail_digits.Add(i);
+
+            for (int d=digits-1; d > 0; d--)
+            {
+                int fact = factorial(d);
+                int curr_index = (remaining) / fact;
+                remaining = (remaining) % fact;
+                int curr_digit = avail_digits[curr_index];
+                avail_digits.Remove(curr_digit);
+                result = (result * 10) + curr_digit;
+
+            }
+            result = (result * 10) + avail_digits[0];
+            return result;
+        }
+
+        private static int factorial(int n)
+        {
+            int result = 1;
+            for (int i = 1; i <= n; i++)
+                result *= i;
+            return result;
+        }
+
+        public static int Solution025()
+            => FibonacciDigits(1000);
+
+        private static int FibonacciDigits(int min_digits)
+        {
+            const double PHI = 1.6180339887;
+            var LOG10PHI = Math.Log10(PHI);
+
+            for (var x=0; true; x++ )
+            {
+                var digits = x * LOG10PHI - Math.Log10(5.0) / 2.0;
+                if (digits > min_digits-1)
+                    return x;
+            }
+        }
     }
 }
