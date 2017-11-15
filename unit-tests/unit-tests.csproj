@@ -52,6 +52,7 @@
     <Compile Include="Solutions001to010Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solutions011to020Tests.cs" />
+    <Compile Include="Solutions021to030Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
