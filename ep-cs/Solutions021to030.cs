@@ -174,18 +174,22 @@ namespace ep_cs
         }
 
         public static int Solution025()
-            => FibonacciDigits(1000);
+            => FibonacciTermWithMinDigits(1000);
 
-        private static int FibonacciDigits(int min_digits)
+        public static int FibonacciTermWithMinDigits(int min_digits)
         {
+            // Phi is the golden ratio
             const double PHI = 1.6180339887;
             var LOG10PHI = Math.Log10(PHI);
 
-            for (var x=0; true; x++ )
+            for (var n=1; true; n++ )
             {
-                var digits = x * LOG10PHI - Math.Log10(5.0) / 2.0;
+                // The limit of the ratio of consecutive terms in the Fibonacci series approaches
+                // the golden ratio.  Use this to approximate the nth term in the series.  Use log10
+                // to get the number of digits
+                var digits = n * LOG10PHI - Math.Log10(5.0) / 2.0;
                 if (digits > min_digits-1)
-                    return x;
+                    return n;
             }
         }
     }

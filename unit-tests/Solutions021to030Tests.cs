@@ -20,5 +20,15 @@ namespace unit_tests
             //Test(Solutions.Solution029, nameof(Solutions.Solution029), 9183, TestSpeed.Fast);
             //Test(Solutions.Solution030, nameof(Solutions.Solution030), 443839, TestSpeed.Fast);
         }
+
+        /// <summary>
+        /// Testing of more cases related to Solution025 - first Fibonacci term with n digits
+        /// </summary>
+        [TestMethod]
+        public void Solution025ImplementationTest()
+        {
+            Assert.AreEqual(7, Solutions.FibonacciTermWithMinDigits(2));
+            Assert.AreEqual(12, Solutions.FibonacciTermWithMinDigits(3));
+        }
     }
 }
