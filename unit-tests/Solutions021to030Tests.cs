@@ -18,7 +18,7 @@ namespace unit_tests
             Test(Solutions.Solution027, nameof(Solutions.Solution027), -59231, TestSpeed.Fast);
             Test(Solutions.Solution028, nameof(Solutions.Solution028), 669171001, TestSpeed.Fast);
             Test(Solutions.Solution029, nameof(Solutions.Solution029), 9183, TestSpeed.Fast);
-            //Test(Solutions.Solution030, nameof(Solutions.Solution030), 443839, TestSpeed.Fast);
+            Test(Solutions.Solution030, nameof(Solutions.Solution030), 443839, TestSpeed.Fast);
         }
 
         /// <summary>
@@ -57,6 +57,15 @@ namespace unit_tests
         public void Solution029ImplementationTest()
         {
             Assert.AreEqual(15, Solutions.DistinctPowerTerms(5, 5));
+        }
+
+        /// <summary>
+        /// Testing of more cases related to Solution030 - sum of digit powers
+        /// </summary>
+        [TestMethod]
+        public void Solution030ImplementationTest()
+        {
+            Assert.AreEqual(19316, Solutions.SumNumbersThatAreSumOfPowers(4));
         }
     }
 }

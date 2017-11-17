@@ -329,5 +329,42 @@ namespace ep_cs
                     terms.Add(BigInteger.Pow(a, b));
             return terms.Count;
         }
+
+        public static int Solution030()
+            => SumNumbersThatAreSumOfPowers(5);
+
+        public static int SumNumbersThatAreSumOfPowers(int exp)
+        {
+            // Check for wold-be overflow
+            if (exp > 8)
+                throw new ArgumentException("Max supported exp: 8");
+
+            int pow(int x, int y)
+            {
+                var n = 1;
+                for (var i = 0; i < y; i++)
+                    n *= x;
+                return n;
+            }
+
+            var max = exp * pow(9, exp);
+
+            var result = 0;
+            for (var num=0; num<=max; num++)
+            {
+                var sum = 0;
+                var curr = num;
+                while (curr > 0)
+                {
+                    sum += pow(curr % 10, exp);
+                    curr /= 10;
+                }
+                if (sum == num)
+                    result += num;
+            }
+            // Cancel out 1, which will always be included, but the problem statement
+            // says not to, since it is not a sum.
+            return result - 1;
+        }
     }
 }
